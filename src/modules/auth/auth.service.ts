@@ -9,17 +9,13 @@ export const AuthService = {
       throw new ConflictError("user already exists");
     }
     const hasedpass = await hashPassword(body.password);
-    const user = await userRepository.createUser({
+    await userRepository.createUser({
       ...body,
       password: hasedpass,
     });
     return {
-      user: {
-        id: user?.id,
-        name: user?.name,
-        email: user?.email,
-        isEmailVerified: user?.isEmailVerified,
-      },
+      status: true,
+      message: "user has been registered successfully",
     };
   },
 };
