@@ -1,9 +1,9 @@
+import { UserDocument } from "../../types/auth.types";
 import { ConflictError } from "../../utils/error/AppError";
-import { registerPayload } from "./auth.types";
 import { hashPassword } from "./helper";
 import { userRepository } from "./user.repository";
 export const AuthService = {
-  async register(body: registerPayload) {
+  async register(body: UserDocument) {
     const existingUser = await userRepository.findbyEmail(body.email);
     if (existingUser) {
       throw new ConflictError("user already exists");

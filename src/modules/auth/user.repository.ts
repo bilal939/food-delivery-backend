@@ -1,11 +1,10 @@
-import { UserModel, UserDocument } from "../../models/user.model";
-import { registerPayload } from "./auth.types";
-
+import { UserDocument } from "../../types/auth.types";
+import { UserModel } from "../../models/user.model";
 export const userRepository = {
   async findbyEmail(email: string): Promise<UserDocument | null> {
     return await UserModel.findOne({ email: email.toLowerCase() });
   },
-  async createUser(data: registerPayload): Promise<UserDocument | null> {
+  async createUser(data: UserDocument): Promise<UserDocument | null> {
     return await UserModel.create(data);
   },
 };

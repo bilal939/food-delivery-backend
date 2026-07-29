@@ -1,20 +1,5 @@
 import { Schema, model, Document } from "mongoose";
-
-export type Gender = "male" | "female" | "other";
-
-export interface UserDocument extends Document {
-  name: string;
-  email: string;
-  gender: Gender;
-  dob: string;
-  password: string;
-  isEmailVerified: boolean;
-  tokenVersion: number;
-  createdAt: Date;
-  id?: number;
-}
-
-export const GENDER_OPTIONS: Gender[] = ["male", "female", "other"];
+import { UserDocument, GENDER_OPTIONS } from "../types/auth.types";
 
 const MIN_AGE_YEARS = 13;
 
@@ -47,23 +32,19 @@ const userSchema = new Schema<UserDocument>({
 
   dob: {
     type: String,
-    // required: [true, "Date of birth is required"],
-    // validate: {
-    //   //   validator: function (value: Date) {
-    //   //     if (value > new Date()) return false;
-    //   //     const age =
-    //   //       (Date.now() - value.getTime()) / (1000 * 60 * 60 * 24 * 365.25);
-    //   //     return age >= MIN_AGE_YEARS;
-    //   //   },
-    //   //   message: `You must be at least ${MIN_AGE_YEARS} years old to register`,
-    //   // },}
-    // },
+    required: [true, "Date of birth is required"],
+    validate: {
+      validator: function (value: Date) {
+        if (value > new Date()) return false;
+        const age =
+          (Date.now() - value.getTime()) / (1000 * 60 * 60 * 24 * 365.25);
+        return age >= MIN_AGE_YEARS;
+      },
+      message: `You must be at least ${MIN_AGE_YEARS} years old to register`,
+    },
   },
-
   password: { type: String, required: true },
-
   isEmailVerified: { type: Boolean, default: false },
-  tokenVersion: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now },
 });
 
