@@ -33,15 +33,15 @@ const userSchema = new Schema<UserDocument>({
   dob: {
     type: String,
     required: [true, "Date of birth is required"],
-    validate: {
-      validator: function (value: Date) {
-        if (value > new Date()) return false;
-        const age =
-          (Date.now() - value.getTime()) / (1000 * 60 * 60 * 24 * 365.25);
-        return age >= MIN_AGE_YEARS;
-      },
-      message: `You must be at least ${MIN_AGE_YEARS} years old to register`,
-    },
+    // validate: {
+    //   validator: function (value: Date) {
+    //     if (value > new Date()) return false;
+    //     const age =
+    //       (Date.now() - value.getTime()) / (1000 * 60 * 60 * 24 * 365.25);
+    //     return age >= MIN_AGE_YEARS;
+    //   },
+    //   message: `You must be at least ${MIN_AGE_YEARS} years old to register`,
+    // },
   },
   password: { type: String, required: true },
   isEmailVerified: { type: Boolean, default: false },

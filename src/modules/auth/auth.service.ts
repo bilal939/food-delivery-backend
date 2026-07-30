@@ -1,5 +1,7 @@
 import { UserDocument } from "../../types/auth.types";
 import { ConflictError } from "../../utils/error/AppError";
+import { emailService } from "../email/email.service";
+import { otpService } from "../otp/otpservice";
 import { hashPassword } from "./helper";
 import { userRepository } from "./user.repository";
 export const AuthService = {
@@ -9,10 +11,19 @@ export const AuthService = {
       throw new ConflictError("user already exists");
     }
     const hasedpass = await hashPassword(body.password);
-    await userRepository.createUser({
+    const user: any = await userRepository.createUser({
       ...body,
       password: hasedpass,
     });
+    const response = await otpService.generateOtp(
+      user?._id!,
+      "EMAIL_VERIFICATION",
+    );
+    emailService.sendVerifcationEmail(
+      user.email,
+      { ...response, expiryMinutes: "10", name: user?.name },
+      "Verify Email",
+    );
     return {
       status: true,
       message: "user has been registered successfully",

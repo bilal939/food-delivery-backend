@@ -21,7 +21,7 @@ export interface UserDocument extends Document {
   isEmailVerified: boolean;
   tokenVersion: number;
   createdAt: Date;
-  id?: number;
+  _id?: number;
 }
 
 export const GENDER_OPTIONS: Gender[] = ["male", "female", "other"];
