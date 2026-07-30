@@ -1,11 +1,11 @@
 export const emailVerification = ({
   name,
-  expiryMinutes,
+  expiresAt,
   otp,
 }: {
   name: string;
-  expiryMinutes: string;
-  otp: string;
+  expiresAt: string;
+  otp: string | number;
 }) => {
   return `<!DOCTYPE html>
 <html>
@@ -34,7 +34,7 @@ export const emailVerification = ({
               <h1 style="margin:0 0 12px; font-size: 22px; color:#111827; font-weight:700;">Verify your email</h1>
               <p style="margin:0 0 24px; font-size: 15px; color:#4b5563; line-height: 1.6;">
                 Hi ${name},<br/>
-                Use the code below to verify your account. This code is valid for <strong>${expiryMinutes} minutes</strong>.
+                Use the code below to verify your account. This code is valid for <strong>${expiresAt} minutes</strong>.
               </p>
 
               <!-- OTP Box -->

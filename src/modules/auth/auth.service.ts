@@ -15,13 +15,13 @@ export const AuthService = {
       ...body,
       password: hasedpass,
     });
-    const response = await otpService.generateOtp(
+    const { otp, expiresAt } = await otpService.generateOtp(
       user?._id!,
       "EMAIL_VERIFICATION",
     );
     emailService.sendVerifcationEmail(
       user.email,
-      { ...response, expiryMinutes: "10", name: user?.name },
+      { otp, expiresAt, name: user?.name },
       "Verify Email",
     );
     return {

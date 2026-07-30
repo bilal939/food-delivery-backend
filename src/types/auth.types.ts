@@ -24,4 +24,8 @@ export interface UserDocument extends Document {
   _id?: number;
 }
 
+export interface otpResponse {
+  expiresAt: Date | string;
+  otp: number | string;
+}
 export const GENDER_OPTIONS: Gender[] = ["male", "female", "other"];

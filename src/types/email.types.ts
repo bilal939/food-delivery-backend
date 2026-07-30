@@ -1,5 +1,5 @@
 export interface sendVerifcationEmail {
-  otp: string;
+  otp: string | number;
   name: string;
-  expiryMinutes: string;
+  expiresAt: Date | string;
 }
