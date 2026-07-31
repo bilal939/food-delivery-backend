@@ -21,7 +21,7 @@ export interface UserDocument extends Document {
   isEmailVerified: boolean;
   tokenVersion: number;
   createdAt: Date;
-  _id?: number;
+  _id?: Types.ObjectId;
 }
 
 export interface otpResponse {

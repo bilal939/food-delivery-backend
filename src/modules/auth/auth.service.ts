@@ -11,7 +11,7 @@ export const AuthService = {
       throw new ConflictError("user already exists");
     }
     const hasedpass = await hashPassword(body.password);
-    const user: any = await userRepository.createUser({
+    const user = await userRepository.createUser({
       ...body,
       password: hasedpass,
     });
@@ -20,8 +20,8 @@ export const AuthService = {
       "EMAIL_VERIFICATION",
     );
     emailService.sendVerifcationEmail(
-      user.email,
-      { otp, expiresAt, name: user?.name },
+      user?.email!,
+      { otp, expiresAt, name: user?.name! },
       "Verify Email",
     );
     return {
